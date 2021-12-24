@@ -4,58 +4,60 @@ import org.springframework.stereotype.Service;
 import pro.sky.collection.data.Employee;
 import pro.sky.collection.exception.EmployeeNotFoundException;
 import pro.sky.collection.exception.EmployeeStorageOverflowException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Employee[] employees;
-    private int size;
+    List<Employee> employees = new ArrayList<Employee>();
 
     public EmployeeServiceImpl() {
-        this.employees=new Employee[2];
+        this.employees=new ArrayList<Employee>();
     }
 
     public Employee addEmployee(String firstName, String lastName) {
         if (firstName == "" && lastName == "") {
             throw new EmployeeStorageOverflowException();
-        }else {
-        if (size >= employees.length) {
-            throw new EmployeeStorageOverflowException();
         }
         Employee newEmployees=new Employee(firstName,lastName);
-        employees[size++]=newEmployees;
+        employees.add(newEmployees);
         return newEmployees;
-        }
     }
 
     public Employee removeEmployees(String firstName, String lastName){
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
+        Employee employeeRemove=new Employee(firstName, lastName);
+        for (Employee employee:employees) {
+            if (employees == null) {
                 continue;
             }
-            if (firstName.equals(employees[i].getFirstName()) && lastName.equals(employees[i].getLastName())) {
-                Employee employee = employees[i];
-                if (i != employees.length - 1) {
-                    System.arraycopy(employees, i + 1, employees, i, size - i);
-                }
-                size--;
-                return employee;
+            if (firstName.equals(employee.getFirstName()) && lastName.equals(employee.getLastName())) {
+                employees.remove(employeeRemove);
+                return employeeRemove;
             }
         }
         throw new EmployeeNotFoundException();
     }
 
-        public Employee findEmployee(String firstName, String lastName){
+    public Employee findEmployee(String firstName, String lastName){
+        Employee employeeFind=new Employee(firstName, lastName);
             if (firstName == "" && lastName == ""){
                 throw new EmployeeNotFoundException();
             }
-            for (int i = 0; i < employees.length; i++) {
-                if (employees[i] == null) {
+            for (Employee employee:employees) {
+                if (employees == null) {
                     continue;
                 }
-                if (firstName.equals(employees[i].getFirstName()) && lastName.equals(employees[i].getLastName())) {
-                    return employees[i];
+                if (firstName.equals(employee.getFirstName()) && lastName.equals(employee.getLastName())) {
+                    return employeeFind;
                 }
             }
         throw new EmployeeNotFoundException();
+    }
+
+    public List<Employee> allEmployee() {
+        if (employees == null) {
+            throw new EmployeeNotFoundException();
+        }
+        return employees;
     }
 }

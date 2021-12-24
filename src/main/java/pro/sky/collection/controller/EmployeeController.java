@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.collection.data.Employee;
 import pro.sky.collection.service.EmployeeServiceImpl;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -31,6 +33,11 @@ public class EmployeeController {
     public String removeEmployee(@RequestParam String firstName,@RequestParam String lastName) {
         employeeServiceImpl.removeEmployees(firstName, lastName);
         return "Сотрудник " + firstName + " " + lastName + " удален";
+    }
+
+    @GetMapping(path ="/all")
+    public List<Employee> allEmployee() {
+        return employeeServiceImpl.allEmployee();
     }
 
 }
