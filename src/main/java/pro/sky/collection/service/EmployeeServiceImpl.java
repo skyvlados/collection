@@ -11,53 +11,38 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     List<Employee> employees = new ArrayList<Employee>();
 
-    public EmployeeServiceImpl() {
-        this.employees=new ArrayList<Employee>();
-    }
-
     public Employee addEmployee(String firstName, String lastName) {
-        if (firstName == "" && lastName == "") {
-            throw new EmployeeStorageOverflowException();
-        }
+        validateData(firstName, lastName);
         Employee newEmployees=new Employee(firstName,lastName);
         employees.add(newEmployees);
         return newEmployees;
     }
 
+    private void validateData(String firstName, String lastName) {
+        if (firstName == "" && lastName == "") {
+            throw new EmployeeStorageOverflowException();
+        }
+    }
+
     public Employee removeEmployees(String firstName, String lastName){
         Employee employeeRemove=new Employee(firstName, lastName);
-        for (Employee employee:employees) {
-            if (employees == null) {
-                continue;
-            }
-            if (firstName.equals(employee.getFirstName()) && lastName.equals(employee.getLastName())) {
-                employees.remove(employeeRemove);
-                return employeeRemove;
-            }
+        if (employees.contains(employeeRemove)) {
+            employees.remove(employeeRemove);
+            return employeeRemove;
         }
-        throw new EmployeeNotFoundException();
+            throw new EmployeeNotFoundException();
     }
 
-    public Employee findEmployee(String firstName, String lastName){
+    public Employee employee(String firstName, String lastName){
         Employee employeeFind=new Employee(firstName, lastName);
-            if (firstName == "" && lastName == ""){
-                throw new EmployeeNotFoundException();
-            }
-            for (Employee employee:employees) {
-                if (employees == null) {
-                    continue;
-                }
-                if (firstName.equals(employee.getFirstName()) && lastName.equals(employee.getLastName())) {
-                    return employeeFind;
-                }
-            }
+        validateData(firstName, lastName);
+        if (employees.contains(employeeFind)) {
+            return employeeFind;
+        }
         throw new EmployeeNotFoundException();
-    }
+        }
 
     public List<Employee> allEmployee() {
-        if (employees == null) {
-            throw new EmployeeNotFoundException();
-        }
-        return employees;
+        return new ArrayList<>(employees);
     }
 }

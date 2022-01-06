@@ -18,24 +18,24 @@ public class EmployeeController {
 
         this.employeeServiceImpl = employeeServiceImpl;
     }
-    @GetMapping(path ="/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeServiceImpl.findEmployee(firstName,lastName);
+    @GetMapping("/find")
+    public Employee employee(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeServiceImpl.employee(firstName,lastName);
     }
 
-    @GetMapping(path ="/add")
+    @GetMapping("/add")
     public String addEmployee(@RequestParam String firstName,@RequestParam String lastName) {
         employeeServiceImpl.addEmployee(firstName, lastName);
         return "Сотрудник "+firstName+" "+lastName+" успешно создан.";
     }
 
-    @GetMapping(path ="/remove")
+    @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName,@RequestParam String lastName) {
         employeeServiceImpl.removeEmployees(firstName, lastName);
         return "Сотрудник " + firstName + " " + lastName + " удален";
     }
 
-    @GetMapping(path ="/all")
+    @GetMapping("/all")
     public List<Employee> allEmployee() {
         return employeeServiceImpl.allEmployee();
     }
