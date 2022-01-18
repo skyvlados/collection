@@ -20,7 +20,7 @@ public class EmployeeController {
     }
     @GetMapping("/find")
     public Employee employee(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeServiceImpl.employee(firstName,lastName);
+        return employeeServiceImpl.findEmployee(firstName,lastName);
     }
 
     @GetMapping("/add")
@@ -31,7 +31,7 @@ public class EmployeeController {
 
     @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName,@RequestParam String lastName) {
-        employeeServiceImpl.removeEmployees(firstName, lastName);
+        employeeServiceImpl.removeEmployee(firstName, lastName);
         return "Сотрудник " + firstName + " " + lastName + " удален";
     }
 

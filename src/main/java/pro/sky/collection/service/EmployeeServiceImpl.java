@@ -13,9 +13,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Employee addEmployee(String firstName, String lastName) {
         validateData(firstName, lastName);
-        Employee newEmployees=new Employee(firstName,lastName);
-        employees.add(newEmployees);
-        return newEmployees;
+        Employee employee=new Employee(firstName,lastName);
+        employees.add(employee);
+        return employee;
     }
 
     private void validateData(String firstName, String lastName) {
@@ -24,20 +24,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    public Employee removeEmployees(String firstName, String lastName){
-        Employee employeeRemove=new Employee(firstName, lastName);
-        if (employees.contains(employeeRemove)) {
-            employees.remove(employeeRemove);
-            return employeeRemove;
+    public Employee removeEmployee(String firstName, String lastName){
+        Employee employee=new Employee(firstName, lastName);
+        if (employees.contains(employee)) {
+            employees.remove(employee);
+            return employee;
         }
             throw new EmployeeNotFoundException();
     }
 
-    public Employee employee(String firstName, String lastName){
-        Employee employeeFind=new Employee(firstName, lastName);
+    public Employee findEmployee(String firstName, String lastName){
+        Employee employee=new Employee(firstName, lastName);
         validateData(firstName, lastName);
-        if (employees.contains(employeeFind)) {
-            return employeeFind;
+        if (employees.contains(employee)) {
+            return employee;
         }
         throw new EmployeeNotFoundException();
         }
