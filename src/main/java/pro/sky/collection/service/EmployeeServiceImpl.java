@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException();
         }
 
-    public List<Employee> allEmployee() {
+    public List<Employee> showAllEmployee() {
         return new ArrayList<>(employees);
     }
 }

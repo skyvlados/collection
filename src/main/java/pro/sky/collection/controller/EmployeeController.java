@@ -24,20 +24,19 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String addEmployee(@RequestParam String firstName,@RequestParam String lastName) {
-        employeeServiceImpl.addEmployee(firstName, lastName);
-        return "Сотрудник "+firstName+" "+lastName+" успешно создан.";
+    public Employee addEmployee(@RequestParam String firstName,@RequestParam String lastName) {
+        return employeeServiceImpl.addEmployee(firstName, lastName);
+
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String firstName,@RequestParam String lastName) {
-        employeeServiceImpl.removeEmployee(firstName, lastName);
-        return "Сотрудник " + firstName + " " + lastName + " удален";
+    public Employee removeEmployee(@RequestParam String firstName,@RequestParam String lastName) {
+        return employeeServiceImpl.removeEmployee(firstName, lastName);
     }
 
     @GetMapping("/all")
-    public List<Employee> allEmployee() {
-        return employeeServiceImpl.allEmployee();
+    public List<Employee> showAllEmployee() {
+        return employeeServiceImpl.showAllEmployee();
     }
 
 }
